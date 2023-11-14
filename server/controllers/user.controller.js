@@ -74,4 +74,4 @@ error: errorHandler.getErrorMessage(err)
 })
 } 
 }
-	export default { create, userByID, read, list, remove, update }
+export default { create, userByID, read, list, remove, update }
