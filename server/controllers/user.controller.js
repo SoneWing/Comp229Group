@@ -1,21 +1,25 @@
 import User from '../models/user.model.js'
-	import extend from 'lodash/extend.js'
-	import errorHandler from './error.controller.js'
+import extend from 'lodash/extend.js'
+import errorHandler from './error.controller.js'
+import request from 'request'
+import config from './../../config/config.js'
+
 const create = async (req, res) => { 
 	console.log(req.body);
-const user = new User(req.body) 
-try {
-await user.save()
-return res.status(200).json({ 
-message: "Successfully signed up!"
-})
-} catch (err) {
-return res.status(400).json({
-error: errorHandler.getErrorMessage(err) 
-})
-} 
+	const user = new User(req.body) 
+	try {
+		await user.save()
+		return res.status(200).json({ 
+		message: "Successfully signed up!"
+		})
+	} catch (err) {
+		return res.status(400).json({
+		error: errorHandler.getErrorMessage(err) 
+		})
+	} 
 }
-	const list = async (req, res) => { 
+
+const list = async (req, res) => { 
 	try {
 	let users = await User.find().select('name email 	updated created') 
 	res.json(users)
@@ -24,8 +28,9 @@ error: errorHandler.getErrorMessage(err)
 	error: errorHandler.getErrorMessage(err) 
 	})
 	} 
-	}
-	const userByID = async (req, res, next, id) => { 
+}
+
+const userByID = async (req, res, next, id) => { 
 try {
 let user = await User.findById(id) 
 if (!user)
@@ -74,4 +79,14 @@ error: errorHandler.getErrorMessage(err)
 })
 } 
 }
-export default { create, userByID, read, list, remove, update }
+
+const isProvider = (req,res,next) =>{
+	const isProvider = req.profile && req.profile.provider
+	if(!isProvider) {
+		return res.status('403').json({
+			error : "User is not a survey provider"
+		})
+	}
+	next()
+}
+export default { create, userByID, read, list, remove, update, isProvider }

@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 //import expressJwt from 'express-jwt'
 import { expressjwt } from "express-jwt";
 import config from './../../config/config.js'
+
 const signin = async (req, res) => { 
 try {
 let user = await User.findOne({ "email": req.body.email }) 
@@ -18,13 +19,15 @@ token,
 user: {
 _id: user._id, 
 name: user.name,
-email: user.email 
+email: user.email,
+provider: user.provier
 }
 })
 } catch (err) {
 return res.status('401').json({ error: "Could not sign in" }) 
 }
 }
+
 const signout = (req, res) => { 
 res.clearCookie("t")
 return res.status('200').json({ 

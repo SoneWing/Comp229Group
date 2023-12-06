@@ -13,6 +13,10 @@ unique: 'Email already exists',
 match: [/.+\@.+\..+/, 'Please fill a valid email address'],
 required: 'Email is required'
 },
+provier:{
+type:Boolean,
+default :false
+},
 created: {
 type: Date,
 default: Date.now
