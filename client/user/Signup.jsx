@@ -1,11 +1,19 @@
-
-
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, TextField, CardActions, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { create } from './api-user';
+import React, {useState} from 'react'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import Icon from '@material-ui/core/Icon'
+import { makeStyles } from '@material-ui/core/styles'
+import {create} from './api-user.js'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -42,6 +50,8 @@ export default function Signup() {
     name: '',
     password: '', 
     email: '',
+    open:false,
+    error:''
   });
 
   const [open, setOpen] = useState(false);
@@ -50,9 +60,7 @@ export default function Signup() {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+
 
   const clickSubmit = () => { 
     const user = {
@@ -65,15 +73,11 @@ export default function Signup() {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {
-        setOpen(true);
+        setValues({...values,error:'',open:true});
       }
     });
   };
 
-  Signup.propTypes = {
-    open: PropTypes.bool.isRequired,
-    handleClose: PropTypes.func.isRequired,
-  };
 
   return (
     <div>
@@ -108,6 +112,11 @@ export default function Signup() {
             type="password"
             margin="normal"
           />
+          <br/> {
+            values.error && (<Typography component="p" color="error">
+              <Icon color="error" className={classes.error}>error</Icon>
+              {values.error}</Typography>)
+          }
         </CardContent> 
         <CardActions>
           <Button color="primary" variant="contained" onClick={clickSubmit} 

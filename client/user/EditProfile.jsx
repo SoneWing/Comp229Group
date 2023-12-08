@@ -6,12 +6,12 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Switch from '@material-ui/core/Switch'
 import { makeStyles } from '@material-ui/core/styles'
-import auth from '../lib/auth-helper.js'
+import auth from '../auth/auth-helper.js'
 import {read, update} from './api-user.js'
-import {Navigate} from 'react-router-dom'
-import { useParams } from 'react-router-dom';
-import { FormControlLabel } from '@material-ui/core'
+import {Redirect} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -44,12 +44,11 @@ export default function EditProfile({ match }) {
   const { userId } = useParams();
   const [values, setValues] = useState({
     name: '',
-    password: '',
     email: '',
+    password: '',
     provider : false,
-    open: false,
-    error: '',
-    redirectToProfile: false
+    redirectToProfile: false,
+    error: ''
   })
   const jwt = auth.isAuthenticated()
 
@@ -58,7 +57,7 @@ export default function EditProfile({ match }) {
     const signal = abortController.signal
 
     read({
-      userId: userId
+      userId: match.params.userId
     }, {t: jwt.token}, signal).then((data) => {
       if (data && data.error) {
         setValues({...values, error: data.error})
@@ -70,7 +69,7 @@ export default function EditProfile({ match }) {
       abortController.abort()
     }
 
-  }, [userId])
+  }, [match.params.userId])
 
   const clickSubmit = () => {
     const user = {
@@ -80,7 +79,7 @@ export default function EditProfile({ match }) {
       provider : values.provider || undefined
     }
     update({
-      userId: userId
+      userId: match.params.userId
     }, {
       t: jwt.token
     }, user).then((data) => {
@@ -100,7 +99,7 @@ export default function EditProfile({ match }) {
   }
 
     if (values.redirectToProfile) {
-      return (<Navigate to={'/user/' + values.userId}/>)
+      return (<Redirect to={'/user/' + values.userId}/>)
     }
     return (
       <Card className={classes.card}>

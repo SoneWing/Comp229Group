@@ -1,6 +1,6 @@
 const create = async (params, credentials, surveySite) => {
     try {
-      let response = await fetch('/api/surveySite/by/'+ params.userId, {
+      let response = await fetch('/api/surveySites/by/'+ params.userId, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -16,7 +16,7 @@ const create = async (params, credentials, surveySite) => {
   
   const list = async (signal) => {
     try {
-      let response = await fetch('/api/surveySite', {
+      let response = await fetch('/api/surveySites', {
         method: 'GET',
         signal: signal
       })
@@ -28,7 +28,7 @@ const create = async (params, credentials, surveySite) => {
   
   const listByOwner = async (params, credentials, signal) => {
     try {
-      let response = await fetch('/api/surveySite/by/'+params.userId, {
+      let response = await fetch('/api/surveySites/by/'+params.userId, {
         method: 'GET',
         signal: signal,
         headers: {
@@ -56,7 +56,7 @@ const create = async (params, credentials, surveySite) => {
   
   const update = async (params, credentials, surveySite) => {
     try {
-      let response = await fetch('/api/surveySite/' + params.shopId, {
+      let response = await fetch('/api/surveySites/' + params.shopId, {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
@@ -72,7 +72,7 @@ const create = async (params, credentials, surveySite) => {
   
   const remove = async (params, credentials) => {
     try {
-      let response = await fetch('/api/surveySite/' + params.shopId, {
+      let response = await fetch('/api/surveySites/' + params.shopId, {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',

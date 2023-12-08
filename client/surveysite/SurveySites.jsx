@@ -67,11 +67,11 @@ export default function SurveySites(){
         </Typography>
         <List dense>
           {surveySites.map((surveySite, i) => {
-            return <Link to={"/surveySite/"+surveySite._id} key={i}>
+            return <Link to={"/surveySites/"+surveySite._id} key={i}>
               <Divider/>
               <ListItem button>
                 <ListItemAvatar>
-                  <Avatar className={classes.avatar}  src={'/api/surveySite/logo/'+surveySite._id+"?" + new Date().getTime()}/>
+                  <Avatar className={classes.avatar}  src={'/api/surveySites/logo/'+surveySite._id+"?" + new Date().getTime()}/>
                 </ListItemAvatar>
                 <div className={classes.details}>
                   <Typography type="headline" component="h2" color="primary" className={classes.shopTitle}>

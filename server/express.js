@@ -9,7 +9,6 @@ import userRoutes from './routes/user.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import surveySiteRoute from './routes/surveySite.routes.js'
 
-import path from 'path'
 
 const app = express()
 const CURRENT_WORKING_DIR = process.cwd()

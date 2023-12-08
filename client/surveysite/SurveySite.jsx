@@ -73,8 +73,8 @@ export default function SurveySite({match}) {
   }, [match.params.surveySiteId])
 
     const logoUrl = surveySite._id
-          ? `/api/surveySite/logo/${surveySite._id}?${new Date().getTime()}`
-          : '/api/surveySite/defaultphoto'
+          ? `/api/surveySites/logo/${surveySite._id}?${new Date().getTime()}`
+          : '/api/surveySites/defaultphoto'
     return (<div className={classes.root}>
       <Grid container spacing={8}>
         <Grid item xs={4} sm={4}>

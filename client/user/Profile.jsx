@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -10,15 +8,16 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Edit from '@material-ui/icons/Edit'
 import Person from '@material-ui/icons/Person'
 import Divider from '@material-ui/core/Divider'
 import DeleteUser from './DeleteUser'
-import auth from '../lib/auth-helper.js'
+import auth from './../auth/auth-helper'
 import {read} from './api-user.js'
-import {useLocation, Navigate, Link} from 'react-router-dom'
-import { useParams } from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom'
+import config from './../../config/config'
 
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
@@ -39,14 +38,14 @@ export default function Profile({ match }) {
   const [user, setUser] = useState({})
   const [redirectToSignin, setRedirectToSignin] = useState(false)
   const jwt = auth.isAuthenticated()
-  const { userId } = useParams();
+
 
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
 
     read({
-      userId: userId
+      userId: match.params.userId
     }, {t: jwt.token}, signal).then((data) => {
       if (data && data.error) {
         setRedirectToSignin(true)
@@ -59,16 +58,13 @@ export default function Profile({ match }) {
       abortController.abort()
     }
 
-  }, [userId])
+  }, [match.params.userId])
   
     if (redirectToSignin) {
-    return <Navigate to="/signin" state={{ from: location.pathname }} replace />;
+    return <Redirect to="/signin" />;
       
     }
-    if (auth.isAuthenticated()) {
-    console.log( auth.isAuthenticated().user._id)
-    console.log(user._id)
-    }
+  
     return (
       <Paper className={classes.root} elevation={4}>
         <Typography variant="h6" className={classes.title}>
@@ -86,7 +82,6 @@ export default function Profile({ match }) {
               (<ListItemSecondaryAction>
                 <Link to={"/user/edit/" + user._id}>
                   <IconButton aria-label="Edit" color="primary">
-                 
                     <Edit/>
                   </IconButton>
                 </Link>

@@ -11,9 +11,9 @@ process.env.MONGO_HOST ||
 export default config*/
 
 const config = {
-env: process.env.NODE_ENV || 'development', 
-port: process.env.PORT || 3000,
-jwtSecret: process.env.JWT_SECRET || "YOUR_secret_key", 
-mongoUri: process.env.MONGODB_URI || "mongodb+srv://group:IxP86MoQvxYyFGfQ@cluster0.su9kgeb.mongodb.net/?retryWrites=true&w=majority"
+env: 'development', 
+port: 3000,
+jwtSecret: "YOUR_secret_key", 
+mongoUri:"mongodb+srv://group:IxP86MoQvxYyFGfQ@cluster0.su9kgeb.mongodb.net/?retryWrites=true&w=majority"
 }
 export default config

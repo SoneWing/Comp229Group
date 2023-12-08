@@ -1,6 +1,6 @@
-import SurveySite from '../models/surveysite.model'
-import { extend } from 'lodash'
-import errorHandler from './../helpers/dbErrorHandler'
+import SurveySite from '../models/surveysite.model.js'
+import  extend  from 'lodash/extend.js'
+import errorHandler from './../helpers/dbErrorHandler.js'
 import formidable from 'formidable'
 import fs from 'fs'
 
@@ -74,6 +74,7 @@ const update = (req,res) =>{
             })
         }
         let surveySite = req.surveySite
+        surveySite = extend(surveySite,fields)
         surveySite.updated = Date.now()
         if(files.image){
             surveySite.image.data = fs.readFileSync(files.image.path)
@@ -104,8 +105,8 @@ const remove = async(req,res) =>{
 
 const list = async(req,res) =>{
     try{
-        let surveySite = await SurveySite.find()
-        res.json(surveySite)
+        let surveySites = await SurveySite.find()
+        res.json(surveySites)
     }catch(err){
         return res.status(400).json({
             error : errorHandler.getErrorMessage(err)
@@ -115,8 +116,8 @@ const list = async(req,res) =>{
 
 const listByOwner = async(req,res) =>{
     try{
-        let surveySite = await SurveySite.find({owner:req.profile._id}).populate('owner','_id name')
-        res.json(surveySite)
+        let surveySites = await SurveySite.find({owner:req.profile._id}).populate('owner','_id name')
+        res.json(surveySites)
     }catch(err){
         return res.status(400).json({
             error : errorHandler.getErrorMessage(err)
@@ -125,7 +126,7 @@ const listByOwner = async(req,res) =>{
 }
 
 const isProvider = (req,res,next) => {
-    const isProvider = req.surveySite && req.surveySite.owner._id == req.auth._id
+    const isProvider = req.surveySite && req.auth && req.surveySite.owner._id == req.auth._id
     if(!isProvider){
         return res.status('403').json({
             error : "User is not authorized"

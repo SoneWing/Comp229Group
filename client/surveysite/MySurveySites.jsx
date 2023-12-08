@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function MySurveySite(){
+export default function MySurveySites(){
   const classes = useStyles()
   const [surveySites, setSurveySites] = useState([])
   const [redirectToSignin, setRedirectToSignin] = useState(false)
@@ -89,7 +89,7 @@ export default function MySurveySite(){
             return   <span key={i}>
               <ListItem button>
                 <ListItemAvatar>
-                  <Avatar src={'/api/surveySite/logo/'+surveySite._id+"?" + new Date().getTime()}/>
+                  <Avatar src={'/api/surveySites/logo/'+surveySite._id+"?" + new Date().getTime()}/>
                 </ListItemAvatar>
                 <ListItemText primary={surveySite.name} secondary={surveySite.description}/>
                 { auth.isAuthenticated().user && auth.isAuthenticated().user._id == surveySite.owner._id &&

@@ -111,8 +111,8 @@ export default function EditSurveySite ({match}) {
   }
 
     const logoUrl = values.id
-          ? `/api/surveySite/logo/${values.id}?${new Date().getTime()}`
-          : '/api/surveySite/defaultphoto'
+          ? `/api/surveySites/logo/${values.id}?${new Date().getTime()}`
+          : '/api/surveySites/defaultphoto'
     if (values.redirect) {
       return (<Redirect to={'/provider/surveySite'}/>)
     }

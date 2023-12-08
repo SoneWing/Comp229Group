@@ -81,7 +81,7 @@ export default function NewSurveySite() {
   }
 
     if (values.redirect) {
-      return (<Redirect to={'/seller/shops'}/>)
+      return (<Redirect to={'/provider/surveySites'}/>)
     }
     return (<div>
       <Card className={classes.card}>
@@ -115,7 +115,7 @@ export default function NewSurveySite() {
         </CardContent>
         <CardActions>
           <Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Submit</Button>
-          <Link to='/seller/shops' className={classes.submit}><Button variant="contained">Cancel</Button></Link>
+          <Link to='/provider/surveySites' className={classes.submit}><Button variant="contained">Cancel</Button></Link>
         </CardActions>
       </Card>
     </div>)

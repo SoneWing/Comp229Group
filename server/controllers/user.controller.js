@@ -5,7 +5,6 @@ import request from 'request'
 import config from './../../config/config.js'
 
 const create = async (req, res) => { 
-	console.log(req.body);
 	const user = new User(req.body) 
 	try {
 		await user.save()
@@ -45,13 +44,14 @@ error: "Could not retrieve user"
 }) 
 }
 }
-	const read = (req, res) => {
+
+const read = (req, res) => {
 	req.profile.hashed_password = undefined 
 	req.profile.salt = undefined
 	return res.json(req.profile) 
 	}
 
-	const update = async (req, res) => { 
+const update = async (req, res) => { 
 try {
 let user = req.profile
 user = extend(user, req.body) 
@@ -66,10 +66,11 @@ error: errorHandler.getErrorMessage(err)
 })
 } 
 }
-	const remove = async (req, res) => { 
+
+const remove = async (req, res) => { 
 try {
 let user = req.profile
-let deletedUser = await user.deleteOne() 
+let deletedUser = await user.remove() 
 deletedUser.hashed_password = undefined 
 deletedUser.salt = undefined
 res.json(deletedUser) 

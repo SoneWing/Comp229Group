@@ -7,8 +7,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import Button from '@material-ui/core/Button'
 import auth from './../auth/auth-helper'
 import {Link, withRouter} from 'react-router-dom'
-import CartIcon from '@material-ui/icons/ShoppingCart'
-import Badge from '@material-ui/core/Badge'
+import { Badge } from '@material-ui/core'
 
 const isActive = (history, path) => {
   if (history.location.pathname == path)
@@ -34,8 +33,8 @@ const Menu = withRouter(({history}) => (
             <HomeIcon/>
           </IconButton>
         </Link>
-        <Link to="/surveySite/all">
-          <Button style={isActive(history, "/surveysite/all")}>All Survey Site</Button>
+        <Link to="/surveySites/all">
+          <Button style={isActive(history, "/surveysites/all")}>All Survey Site</Button>
         </Link>
             
       </div>
@@ -54,7 +53,7 @@ const Menu = withRouter(({history}) => (
       }
       {
         auth.isAuthenticated() && (<span>
-          {auth.isAuthenticated().user.seller && (<Link to="/provider/surveysite"><Button style={isPartActive(history, "/provider/")}>My Survey Sites</Button></Link>)}
+          {auth.isAuthenticated().user.provider && (<Link to="/provider/surveySites"><Button style={isPartActive(history, "/provider/")}>My Survey Sites</Button></Link>)}
           <Link to={"/user/" + auth.isAuthenticated().user._id}>
             <Button style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>My Profile</Button>
           </Link>

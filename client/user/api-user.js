@@ -13,11 +13,11 @@ return await response.json()
 console.log(err) 
 }
 }
+
 const list = async (signal) => { 
 try {
 let response = await fetch('/api/users/', { 
 method: 'GET',
-
 signal: signal, 
 })
 return await response.json() 
@@ -25,6 +25,7 @@ return await response.json()
 console.log(err) 
 }
 }
+
 const read = async (params, credentials, signal) => { 
 try {
 let response = await fetch('/api/users/' + params.userId, { 
@@ -41,6 +42,7 @@ return await response.json()
 console.log(err) 
 }
 }
+
 const update = async (params, credentials, user) => { 
 try {
 let response = await fetch('/api/users/' + params.userId, { 
@@ -57,6 +59,7 @@ return await response.json()
 console.log(err) 
 }
 }
+
 const remove = async (params, credentials) => { 
 try {
 let response = await fetch('/api/users/' + params.userId, { 

@@ -1,74 +1,40 @@
-/*import React from 'react'
-import {Route, Routes} from 'react-router-dom'
-import Home from './core/Home' 
-import Users from './user/Users.jsx'
-import Signup from './user/Signup.jsx'
-import Signin from './auth/Signin.jsx'
-import Profile from './user/Profile.jsx'
-import Switch from 'react'
-import PrivateRoute from 'react'
-import EditProfile from 'react'
-import Menu from 'react'
+import React from 'react'
+import {Route, Switch} from 'react-router-dom'
+import Home from './core/Home'
+import Users from './user/Users'
+import Signup from './user/Signup'
+import Signin from './auth/Signin'
+import EditProfile from './user/EditProfile'
+import Profile from './user/Profile'
+import PrivateRoute from './auth/PrivateRoute'
+import Menu from './core/Menu'
+import NewSurveySite from './surveysite/NewSurveySite'
+import SurveySites from './surveysite/SurveySites'
+import MySurveySites from './surveysite/MySurveySites'
+import SurveySite from './surveysite/SurveySite'
+import EditSurveySite from './surveysite/EditSurveySite'
+
 const MainRouter = () => {
-return ( <div> 
-<Routes>
-        <Route exact path="/" element={<Home />} /> 
-                <Route path="/users" component={Users} />
-                <Route path="/signup" component={Signup} />
-                <Route path="/signin" component={Signin} />
-                <Route path="/user/:userId" component={Profile} />
-                <Menu/>
-     <Switch>
+  return (<div>
+      <Menu/>
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route path="/users" component={Users}/>
+        <Route path="/signup" component={Signup}/>
+        <Route path="/signin" component={Signin}/>
+        <PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
+        <Route path="/user/:userId" component={Profile}/>
 
-<PrivateRoute path="/user/edit/:userId" component={EditProfile}/> 
-<Route path="/user/:userId" component={Profile}/>
-</Switch>
-        
-        
-</Routes>
-</div> 
-)
-}
-export default MainRouter*/
+        <Route path="/surveySites/all" component={SurveySites}/>
+        <Route path="/surveySites/:surveySiteId" component={SurveySite}/>
+
+        <PrivateRoute path="/provider/surveySites" component={MySurveySites}/>
+        <PrivateRoute path="/provider/surveySite/new" component={NewSurveySite}/>
+        <PrivateRoute path="/provider/surveySite/edit/:surveySiteId" component={EditSurveySite}/>
 
 
-
-
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-//import React from 'react'
-//import {Route, Routes} from 'react-router-dom'
-import Home from './core/Home' 
-import Users from './user/Users.jsx'
-import Signup from './user/Signup.jsx'
-import Signin from './lib/Signin.jsx'
-import Profile from './user/Profile.jsx'
-import Switch from 'react'
-import PrivateRoute from './lib/PrivateRoute.jsx'
-import EditProfile from './user/EditProfile.jsx'
-import Menu from './core/Menu' 
-function MainRouter() {
-        return (
-          <div>
-      <Menu/>                    
-  <Routes>
-  <Route path="/" element={<Home />} /> 
-  <Route path="/users" element={<Users />} />
-  <Route path="/signup" element={<Signup />} />
-  <Route path="/signin" element={<Signin />} />
-  <Route
-    path="/user/edit/:userId"
-    element={
-      <PrivateRoute>
-        <EditProfile />
-      </PrivateRoute>
-    }
-  />
-  <Route path="/user/:userId" element={<Profile />} />
-
-</Routes>
-</div>
-  );
+      </Switch>
+    </div>)
 }
 
-export default MainRouter;
+export default MainRouter
